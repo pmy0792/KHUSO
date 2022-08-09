@@ -7,7 +7,7 @@ import requests
 from subprocess import check_output
 
 
-headers = {'Authorization': 'Bearer ' + '191fb802fa3c0d692dfd859587ae8f28f9ee4d22'}
+headers = {'Authorization': 'Bearer ' + '3d59cef697bcc7734a9ec19107ac1618224902f9'}
 
 def execute_api(filename):
     rect=[]
@@ -18,7 +18,7 @@ def execute_api(filename):
     print ("result:\n", result)
 
     json_obj = json.loads(result)
-    print(len(json_obj["segmentation_results"]))
+    #print(len(json_obj["segmentation_results"]))
     
     for obj in json_obj["segmentation_results"]:
         rect.append(obj["contained_bbox"])

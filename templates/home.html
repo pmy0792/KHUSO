@@ -5,21 +5,53 @@
     </head>
     <body>
         <h2> This is home </h2>
-        <div> Img list: </div>
-        {% for img in img_list %}
-            <ul> {{img}} </ul>
-        {% endfor %}
-        <form action="http://localhost:5000/" 
+
+        <!-- 오늘 먹은 식단 리스트 보여줌 -->
+        {% if meal_list|length>0 %}
+            <div> Today's meal: </div>
+            {% for meal in meal_list %}
+                <ol> {{meal}} </ol>
+            {% endfor %}
+
+            {% else %}
+            <h3> 아직 오늘 등록된 식단이 없습니다!</h3>
+        {% endif %}
+        
+        
+        <!-- 식단 추가하기-->
+        <form action="http://localhost:5000/upload" 
             method="POST"
             enctype="multipart/form-data">
-        <input type="file" name="file" />
-        <input type="submit" />
+            <input type="file" name="file" />
+            <input type="submit" />
         </form>
 
-        <br><br>
+
+        
+
+        <!-- 추가한 식단 분석 후 사용자가 각 음식 g수 입력-->
+
+        <!-- {% if meal_names|length> 0 %}
+        <form action="http://localhost:5000/save"
+            method="POST">
+            {% for meal_name in meal_names %}
+                {{meal_name}}: <input type="text" name="{{meal_name}}"> g<br>
+            {% endfor %}
+        
+
+        <input type="submit" />       
+        </form>
+        {% endif %}
+    -->
+        
+
+    <br><br>
         {% if img is not none %}
             analyzed_img: <br>
-            <img src="/static/{{img}}" />
+            <img src="/{{img}}" />
         {% endif %}
+
+
+        <h4> {{result}}</h4>
     </body>
 </html>

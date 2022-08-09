@@ -1,6 +1,6 @@
 from pickle import NONE
 from flask import Flask, render_template, request
-from hamcrest import none
+#from hamcrest import none
 from pymysql import NULL
 from werkzeug.utils import secure_filename
 import cv2

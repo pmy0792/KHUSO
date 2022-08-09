@@ -32,65 +32,94 @@
         {% endif %}
         <br/><br/>    
         <a href="javascript:doDisplay();"> >see details</a><br/><br/> 
-        <div id="myDIV"> 	
-            <div> This is description... 설명설명설명설명... </div>
-            <div>
-                <br>So, What's the rules?
-                <br>- At least 2 meals a day
-                <br>- Accomplish your goal by the deadline set by yourselves!
-                <br>- Bet your own money, and we'll return when you finish it!
-                <br>- If 100% accomplished, there's prize!!
-            </div>
-            <div>
-                <h2>Participate the challenge</h2>
-                <div>
-                    <br>- Let us know your goal
-                        <form action="/" method="POST" name="challenge-form" id="challenge-form">
-                            <span>
-                                My goal is to 
-                                    <select name="goal">
-                                        <option value="default" selected="selected">Select</option>
-                                        <option value="lose">lose</option>
-                                        <option value="maintain">maintain</option>
-                                        <option value="gain">gain</option>
-                                    </select>
-                                weight
-                            </span>
-                        
-                </div>
-                <div>
-                    <br>
-                            <div>
-                                <label for="Now I'm">- Now I'm : </label>
-                                <input type="text">
-                                <label for="kg">kg,</label>
-                            </div>
-                        
-                            <div>
-                                <label for="and">and I will be</label>
-                                <input type="text">
-                                <label for="kg">kg</label>
-                            </div>
-                            
-                            <div>
-                                <label for="by">by</label>
-                                <input type="date">
-                            </div>
-                </div>
-
-                <div>
-                    <br>
-                            <div>
-                                <label for="Now I'm">- Betting money : </label>
-                                <input type="text">
-                                <label for="won">won</label>
-                            </div>
-                        </form>
-                </div>
-                <div>
-                <input type="submit" value="Start the Challenge">
-                </form>
+<<<<<<< HEAD
+        
                 <!--<button type="submit">Start the challenge</button>-->
+=======
+                <script type="text/javascript">
+
+                    // 버튼 클릭 이벤트
+                    function innerSample1() {
+                        // span 문자열 변경
+                        document.getElementById("test1").innerHTML = 
+
+                        `<div> <label for='Now I'm'>- Today's Weight is : </label> <input type='text'><label for='kg'>kg,</label>
+                        </div> <div> <br>- Verification </br> 
+                        <input type='file' name='file' /> </div>
+                        <br> You can do it! </br> <input type = 'submit' />`;
+
+                    }
+
+                    
+                    </script>
+                    
+                    <div>
+                        <form>
+
+                            <span id="test1" style="font-size: 120%;">
+                            
+                                <div id="myDIV"> 	
+                                    <div> This is description... 설명설명설명설명... </div>
+                                    <div>
+                                        <br>So, What's the rules?
+                                        <br>- At least 2 meals a day
+                                        <br>- Accomplish your goal by the deadline set by yourselves!
+                                        <br>- Bet your own money, and we'll return when you finish it!
+                                        <br>- If 100% accomplished, there's prize!!
+                                    </div>
+                                    <div>
+                                        <h2>Participate the challenge</h2>
+                                        <div>
+                                            <br>- Let us know your goal
+                                                <form action="/" method="POST" name="challenge-form" id="challenge-form">
+                                                    <span>
+                                                        My goal is to 
+                                                            <select name="goal">
+                                                                <option value="default" selected="selected">Select</option>
+                                                                <option value="lose">lose</option>
+                                                                <option value="maintain">maintain</option>
+                                                                <option value="gain">gain</option>
+                                                            </select>
+                                                        weight
+                                                    </span>
+                                                
+                                        </div>
+                                        <div>
+                                            <br>
+                                                    <div>
+                                                        <label for="Now I'm">- Now I'm : </label>
+                                                        <input type="text">
+                                                        <label for="kg">kg,</label>
+                                                    </div>
+                                                
+                                                    <div>
+                                                        <label for="and">and I will be</label>
+                                                        <input type="text">
+                                                        <label for="kg">kg</label>
+                                                    </div>
+                                                    
+                                                    <div>
+                                                        <label for="by">by</label>
+                                                        <input type="date">
+                                                    </div>
+                                        </div>
+                        
+                                        <div>
+                                            <br>
+                                                    <div>
+                                                        <label for="Now I'm">- Betting money : </label>
+                                                        <input type="text">
+                                                        <label for="won">won</label>
+                                                    </div>
+                                                </form>
+                                        </div>
+                                        <div>
+                                        <input type="button" value=" Start challenge! " onClick="innerSample1()">
+                                        </form>
+
+                            
+                    </div>
+>>>>>>> hyejeong
                 </div>
             </div>
         </div> 

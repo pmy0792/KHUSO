@@ -8,7 +8,7 @@ import ast
 from subprocess import check_output
 
 
-headers = {'Authorization': 'Bearer ' + '191fb802fa3c0d692dfd859587ae8f28f9ee4d22'}
+headers = {'Authorization': 'Bearer ' + '3d59cef697bcc7734a9ec19107ac1618224902f9'}
 
 def execute_api(filename):
     rect=[]
@@ -16,24 +16,19 @@ def execute_api(filename):
     
     command = "node 4.js {}".format(filename.split('.')[0]) 
     result = check_output(command,shell=True).decode(sys.stdout.encoding)
+<<<<<<< HEAD
   
     # api 호출 될 때 사용
     '''
     json_obj = json.loads(result)    
-    for obj in json_obj["segmentation_results"]:
-        rect.append(obj["contained_bbox"])
+=======
+    #p = p[:len(p)-2]
+    print ("result:\n", result)
 
-    img = cv2.imread(filename, cv2.IMREAD_COLOR)
+    json_obj = json.loads(result)
+    #print(len(json_obj["segmentation_results"]))
     
-    for idx,r in enumerate(rect):
-        img = cv2.rectangle(img, (r['x'], r['y']), (r['x'] + r['w'], r['y'] + r['h']), (255-idx*30, 0, 0), 4)
-            
-    # get nutrients info
-    imgid = json_obj['imageId']
-    print(imgid)
-    url = 'https://api.logmeal.es/v2/recipe/nutritionalInfo'
-    resp = requests.post(url,json={'imageId': imgid}, headers=headers)
-    print("food name : ", resp.json())
+
     '''
     
     # api 호출 안 될 때

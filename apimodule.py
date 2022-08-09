@@ -16,7 +16,6 @@ def execute_api(filename):
     
     command = "node 4.js {}".format(filename.split('.')[0]) 
     result = check_output(command,shell=True).decode(sys.stdout.encoding)
-<<<<<<< HEAD
   
     # api 호출 될 때 사용
     '''

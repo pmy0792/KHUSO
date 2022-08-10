@@ -47,12 +47,17 @@ def upload(img=None):
     # api 사용 시
     #filename=f.filename
     
-    
     # api 사용 안 할 때
     filename='4.jpg'
+    
+    
+    # 노트북에서 돌릴 때 
+    #f.save(secure_filename(filename))
+    #print("file {} uploaded successfully".format(f.filename))
      
-    f.save(secure_filename(filename))
-    print("file {} uploaded successfully".format(f.filename))
+    # 모바일에서 돌릴 때
+     
+     
         
     # run api
     img, result=execute_api(secure_filename(f.filename)) #result는 meal 정보 담는 dict

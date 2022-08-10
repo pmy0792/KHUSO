@@ -83,9 +83,10 @@ def extract_nutritient(response):
         one_food["foodname"]=response['foodName'][i]
         one_food["calories"]=response['nutritional_info_per_item'][i]['nutritional_info']['calories']
         
-        nutri_info=response['nutritional_info_per_item'][i]['nutritional_info']['totalNutrients'][nut]
+        
         
         for nut in nutri:
+            nutri_info=response['nutritional_info_per_item'][i]['nutritional_info']['totalNutrients'][nut]
             one_food[nutri_info['label']]=nutri_info['quantity']
             
         info_list.append(one_food)

@@ -45,11 +45,11 @@ def upload(img=None):
     f=request.files['file']
     
     # api 사용 시
-    filename=f.filename
+    #filename=f.filename
     
     
     # api 사용 안 할 때
-    #filename='4.jpg'
+    filename='4.jpg'
      
     f.save(secure_filename(filename))
     print("file {} uploaded successfully".format(f.filename))
@@ -59,14 +59,14 @@ def upload(img=None):
     print("img: ",img)
     
     # api 사용시...
-    
+    '''
     analyzed_img=f.filename
     print("analyzed_img path:" , analyzed_img)
     cv2.imwrite(analyzed_img,img)
-    
+    '''
         
     # api 사용 안 할 때
-    #analyzed_img='4.jpg'
+    analyzed_img='4.jpg'
         
         
     # save meal info based on analysis

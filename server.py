@@ -116,6 +116,12 @@ def detail(id):
     return render_template("foodinfo.html",meal=found)
 
 
+@app.route('/yesterday',methods=['GET'])
+def test(img=None):
+    return render_template("yesterday.html",meal_list=meal_list,img=img,challenging=challenging,challenge_info=challenge_info)
+
+
+
 if __name__ == '__main__':
     #meal_list=[]
     app.run(debug=True)

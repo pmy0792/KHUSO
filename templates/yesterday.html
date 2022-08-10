@@ -1,6 +1,4 @@
 <!DOCTYPE html>
-<html lang="en">
-
 <html>
     <head>
         <meta charset="UTF-8">
@@ -18,13 +16,13 @@
         <div class="anchor" id="home"></div>
 
         <p class="body_head">
-            <a href="/yesterday">
+            
             <ion-icon name="chevron-back-circle-outline"style="font-size:64px;"></ion-icon>
-            </a>
-            August 9
             
+            August 8
+            <a href="/">
             <ion-icon name="chevron-forward-circle-outline" style="font-size:64px;"></ion-icon>
-            
+            </a>
 
         <script type="text/javascript"> 
             var bDisplay = true; function doDisplay(){ 	
@@ -133,7 +131,6 @@
           </div>
           <script>
             var ctx = document.getElementById('calories').getContext('2d');
-            var graph_data=JSON.parse('{{graph_data|tojson}}');
             var chart = new Chart(ctx, {
               // 챠트 종류를 선택
               type: 'line',
@@ -145,7 +142,7 @@
                   label: 'Calorie',
                   backgroundColor: 'transparent',
                   borderColor: 'red',
-                  data: graph_data["calorie"]
+                  data: [1278, 2210, 1955, 1982, 1570, 2730, 1432]
                 }]
                 },
                 options: {}
@@ -169,35 +166,33 @@
       <!-- 차트 -->
       <script>
         var ctx = document.getElementById('myChart').getContext('2d');
-        var graph_data=JSON.parse('{{graph_data|tojson}}');
-
         var chart = new Chart(ctx, {
           // 챠트 종류를 선택
           type: 'line',
     
           // 챠트를 그릴 데이타
           data: {
-            labels: graph_data["date"], //['08.05', '08.06', '08.07', '08.08', '08.09', '08.10', '08.11'],
+            labels: ['08.05', '08.06', '08.07', '08.08', '08.09', '08.10', '08.11'],
             datasets: [
             {
                 label: 'Protein',
                 backgroundColor: 'transparent',
                 borderColor: 'Purple',
-                data: graph_data["protein"]
+                data: [101, 120, 84, 96, 142, 127,135]
             },
             
             {
                 label: 'Carbohydrate',
                 backgroundColor: 'transparent',
                 borderColor: 'Brown',
-                data: graph_data["carbs"]
+                data: [154, 107, 124, 96, 184, 135,104]
             },
             
             {
                 label: 'Fat',
                 backgroundColor: 'transparent',
                 borderColor: 'Yellow',
-                data: graph_data["fat"]
+                data: [54, 67, 74, 61, 84, 48,96]
             }
             ]
           },
@@ -308,18 +303,4 @@
         <h2>{{challenge_info['deadline']}}</h2>
     {% endif %}
     </body>
-    <script>
-        function file_browse()
-        {
-            document.form.file.click();
-            document.form.text1.value=document.form.file.value;
-        }
-    </script>
-    <p>
-        <form name="form">
-            <input type="file" name= "file"style="display='none';">
-            <input type="text" name="text1">
-        </form>
-    
-    <p><a href="javascript: file_browse()">파일찾아보기</a></p>
 </html>

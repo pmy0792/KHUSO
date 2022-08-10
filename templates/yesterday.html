@@ -1,6 +1,4 @@
 <!DOCTYPE html>
-<html lang="en">
-
 <html>
     <head>
         <meta charset="UTF-8">
@@ -18,13 +16,13 @@
         <div class="anchor" id="home"></div>
 
         <p class="body_head">
-            <a href="/yesterday">
+            
             <ion-icon name="chevron-back-circle-outline"style="font-size:64px;"></ion-icon>
-            </a>
-            August 9
             
+            August 8
+            <a href="/">
             <ion-icon name="chevron-forward-circle-outline" style="font-size:64px;"></ion-icon>
-            
+            </a>
 
         <script type="text/javascript"> 
             var bDisplay = true; function doDisplay(){ 	
@@ -305,18 +303,4 @@
         <h2>{{challenge_info['deadline']}}</h2>
     {% endif %}
     </body>
-    <script>
-        function file_browse()
-        {
-            document.form.file.click();
-            document.form.text1.value=document.form.file.value;
-        }
-    </script>
-    <p>
-        <form name="form">
-            <input type="file" name= "file"style="display='none';">
-            <input type="text" name="text1">
-        </form>
-    
-    <p><a href="javascript: file_browse()">파일찾아보기</a></p>
 </html>

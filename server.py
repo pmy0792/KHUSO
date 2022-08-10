@@ -10,6 +10,7 @@ app = Flask(__name__)
 meal_list=[]
 challenge_info=dict()
 challenging=False
+input_weight=False
 graph_data={
     "date":['08.05', '08.06', '08.07', '08.08', '08.09', '08.10', '08.11'],
     "calorie":[1278, 2210, 1955, 1982, 1570, 2730, 1432],
@@ -31,6 +32,7 @@ def home(img=None):
     global challenging
     global challenge_info
     global graph_data
+    global input_weight
     
     if request.method=="GET":
         # 그래프 정보 넘겨줘야함
@@ -38,7 +40,7 @@ def home(img=None):
         
         
         
-        return render_template("home.html",graph_data=graph_data,meal_list=meal_list,img=img,challenging=challenging,challenge_info=challenge_info)
+        return render_template("home.html",graph_data=graph_data,meal_list=meal_list,img=img,challenging=challenging,challenge_info=challenge_info,input_weight=input_weight)
     
     elif request.method=="POST": #챌린지 참가!!
         challenging=True
@@ -48,19 +50,19 @@ def home(img=None):
         deadline=request.form.get('deadline')
         challenge_info = {
             "goal":goal,
-            "current_state":current_state,
-            "goal_state":goal_state,
-            "deadline":deadline
+            "current_state":float(current_state),
+            "goal_state":float(goal_state),
+            "deadline":deadline[5:7] + '.' + deadline[8:]
         }
         print("challenge info: ",challenge_info)
-        return render_template("home.html",graph_data=graph_data,meal_list=meal_list,img=img,challenging=challenging,challenge_info=challenge_info)
+        return render_template("home.html",graph_data=graph_data,meal_list=meal_list,img=img,challenging=challenging,challenge_info=challenge_info,input_weight=input_weight)
         
     #elif request.method=="POST": 
     #    return render_template("home.html",meal_list=meal_list,img=f.filename)
 
 @app.route('/upload',methods=["GET","POST"])
 def upload(img=None):
-    global meal_list, challenging
+    global meal_list, challenging, input_weight
     print("Request to /upload")
     # image upload
     f=request.files['file']
@@ -100,7 +102,24 @@ def upload(img=None):
    
     meal_list.append({"id": len(meal_list)+1,"image":f.filename,"meal_info": result})
     print("/upload   meal_list:",meal_list)
-    return render_template("home.html", meal_list=meal_list,img=analyzed_img,challenging=challenging,challenge_info=challenge_info)
+    return render_template("home.html", meal_list=meal_list,img=analyzed_img,challenging=challenging,challenge_info=challenge_info,input_weight=input_weight)
+
+
+@app.route('/kgupload', methods=["POST"])
+def homee(img=None):
+    global today_weight
+    input_weight = True
+    
+    print("connect")
+    if request.method=="POST":
+        print("connect_pub")
+        
+        today_weight = request.form.get('today-weight')
+        today_info = float(today_weight)
+        print("today info: ", today_info)
+    return render_template("home.html",graph_data=graph_data,meal_list=meal_list,img=img,challenging=challenging,challenge_info=challenge_info,today_info = today_info, input_weight = input_weight)
+
+
 
 @app.route('/detail/<int:id>', methods=["GET"])
 def detail(id):

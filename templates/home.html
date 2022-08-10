@@ -229,14 +229,15 @@
                             <span id="test1" style="font-size: 120%;">
                             
                                 <div id="myDIV"> 	
-                                    <div> This is description... 설명설명설명설명... </div>
-                                    <div>
-                                        <br>So, What's the rules?
-                                        <br>- At least 2 meals a day
-                                        <br>- Accomplish your goal by the deadline set by yourselves!
-                                        <br>- Bet your own money, and we'll return when you finish it!
-                                        <br>- If 100% accomplished, there's prize!!
+                                    <div> Bet money to take on the challenge !  
+                                        <br> You can proceed with the challenge by setting your target weight and the date you want to achieve.  
+                                        <br> Your goal may be to maintain your weight, or to lose weight. Also, gaining weight can be a goal!
+                                        <br> Set your target weight and try the challenge by betting money!
+                                        <br> You can get your money back according to the percentage you have achieved!
+                                        <br> To get all the money you bet on back, you have to achieve a 100% success rate.
+                                        <br> Use the challenge according to your goal!
                                     </div>
+
                                     <div>
                                         <h2>Participate the challenge</h2>
                                         <div>
@@ -293,8 +294,104 @@
             </div>
         </div> 
     {% else %} <!-- challenge 참여 중일때-->
+
+
+        
+
+        
+
         <h3>Participating!!</h3>
-        <h2>{{challenge_info['deadline']}}</h2>
+
+        <div>
+        <form action="/kgupload" method="POST" name="today-form" id="today-form">
+
+            <div>
+                <br> Input your Today's Weight
+                    <div>
+                        <label for="today-weight">- Today's Weight : </label>
+                        <input type="text" name="today-weight">
+                        <label for="kg">kg,</label>
+                    </div>
+            </div>
+        </div>
+        <br> Verify your weight
+        <input type="file" name="file" />
+        <input type="submit" value=" Uploading your weight! ">
+
+
+        </form>
+
+
+        {% if input_weight == False %}
+        <div class="container">
+            <canvas id="myCharts"></canvas>
+        </div>
+        
+        <script>
+            var ctx = document.getElementById('myCharts').getContext('2d');
+            var challenge_info=JSON.parse('{{challenge_info|tojson}}');
+    
+            var chart = new Chart(ctx, {
+              // 챠트 종류를 선택
+              type: 'line',
+        
+              // 챠트를 그릴 데이타 challenge_info["current_state"]
+              data: {
+                labels: [challenge_info["deadline"]], //challenge_info["deadline"] ['08.05', '08.06', '08.07', '08.08', '08.09', '08.10', '08.11'],
+                datasets: [
+                {
+                    label: 'kg',
+                    backgroundColor: 'transparent',
+                    borderColor: 'Purple',
+                    data: [challenge_info["current_state"]]
+                }
+                ]
+              },
+    
+              // 옵션
+              options: {}
+            });
+            
+          </script>
+
+        {% else %}
+        <br> Success
+        <div class="container">
+            <canvas id="myChartsa"></canvas>
+        </div>
+        
+        <script>
+            var ctx = document.getElementById('myChartsa').getContext('2d');
+            var today_info=JSON.parse('{{today_info|tojson}}');
+    
+            var chart = new Chart(ctx, {
+              // 챠트 종류를 선택
+              type: 'line',
+        
+              // 챠트를 그릴 데이타 challenge_info["current_state"]
+              data: {
+                labels: ['08.11','08.12'], //challenge_info["deadline"] ['08.05', '08.06', '08.07', '08.08', '08.09', '08.10', '08.11'],
+                datasets: [
+                {
+                    label: 'kg',
+                    backgroundColor: 'transparent',
+                    borderColor: 'Purple',
+                    data: [53,today_info]
+                }
+                ]
+              },
+    
+              // 옵션
+              options: {}
+            });
+            
+          </script>
+        {% endif %}
+
+
+
+        
+        
     {% endif %}
     </body>
 </html>

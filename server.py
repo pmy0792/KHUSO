@@ -8,13 +8,14 @@ from apimodule import *
 
 app = Flask(__name__)
 meal_list=[]
-challenge_info=[]
+challenge_info=dict()
 challenging=False
 
 @app.route('/', methods=["GET","POST"])
 def home(img=None):
     global meal_list
     global challenging
+    global challenge_info
     if request.method=="GET":
         return render_template("home.html",meal_list=meal_list,img=img,challenging=challenging)
     
@@ -24,14 +25,14 @@ def home(img=None):
         current_state=request.form.get('current-state')
         goal_state=request.form.get('goal-state')
         deadline=request.form.get('deadline')
-        challenge_info.append({
+        challenge_info = {
             "goal":goal,
             "current_state":current_state,
             "goal_state":goal_state,
             "deadline":deadline
-        })
+        }
         print("challenge info: ",challenge_info)
-        return render_template("home.html",meal_list=meal_list,img=img,challenging=challenging)
+        return render_template("home.html",meal_list=meal_list,img=img,challenging=challenging,challenge_info=challenge_info)
         
     #elif request.method=="POST": 
     #    return render_template("home.html",meal_list=meal_list,img=f.filename)
@@ -44,11 +45,11 @@ def upload(img=None):
     f=request.files['file']
     
     # api 사용 시
-    #filename=f.filename
+    filename=f.filename
     
     
     # api 사용 안 할 때
-    filename='4.jpg'
+    #filename='4.jpg'
      
     f.save(secure_filename(filename))
     print("file {} uploaded successfully".format(f.filename))
@@ -58,14 +59,14 @@ def upload(img=None):
     print("img: ",img)
     
     # api 사용시...
-    '''
+    
     analyzed_img=f.filename
     print("analyzed_img path:" , analyzed_img)
     cv2.imwrite(analyzed_img,img)
-    '''
+    
         
     # api 사용 안 할 때
-    analyzed_img='4.jpg'
+    #analyzed_img='4.jpg'
         
         
     # save meal info based on analysis

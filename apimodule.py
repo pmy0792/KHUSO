@@ -8,8 +8,9 @@ import ast
 from subprocess import check_output
 
 
-headers = {'Authorization': 'Bearer ' + '3d59cef697bcc7734a9ec19107ac1618224902f9'}
-
+headers = {'Authorization': 'Bearer ' + '0ec2e8a733e12c34b7df2c78a42f47354a40a403'}
+# 
+# 3d59cef697bcc7734a9ec19107ac1618224902f9
 def execute_api(filename):
     rect=[]
     result_str=""
@@ -19,12 +20,12 @@ def execute_api(filename):
   
     # api 호출 될 때 사용
     
-    json_obj = json.loads(result)    
-=======
-    #p = p[:len(p)-2]
-    print ("result:\n", result)
-
     json_obj = json.loads(result)
+    img = cv2.imread(filename, cv2.IMREAD_COLOR)
+
+    print("result:\n", result)
+    nutri_result=extract_nutrient(json_obj)
+    
     #print(len(json_obj["segmentation_results"]))
     
 
@@ -37,12 +38,12 @@ def execute_api(filename):
     replaced_resp_str=resp_str.replace("\'","\"")
     #resp_json=json.loads(replaced_resp_str)
     resp_dict= ast.literal_eval(replaced_resp_str)
-    nutri_result=extract_nutritient(resp_dict)
+    nutri_result=extract_nutrient(resp_dict)
     '''  
     
     return img, nutri_result
    
-def extract_nutritient(response):
+def extract_nutrient(response):
     
     # api 호출 될 때 아래 코드 추가
     #response=response.json()
@@ -90,7 +91,7 @@ def extract_nutritient(response):
             one_food[nutri_info['label']]=nutri_info['quantity']
             
         info_list.append(one_food)
-        print("Extracted nutritients info: ",one_food)
+        print("Extracted nutrients info: ",one_food)
         
     print("info_list: ",info_list)
     return info_list

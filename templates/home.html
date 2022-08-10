@@ -13,6 +13,7 @@
       
         <link rel="stylesheet" href="../static/css.css">
         <title>Food Diary</title>
+        <div class="anchor" id="home"></div>
 
         <script type="text/javascript"> 
             var bDisplay = true; function doDisplay(){ 	
@@ -28,43 +29,25 @@
 
 
     <header>
-        Food Diary
+        
+        <a href="#home"><ion-icon name="home-outline"style="text-align:left;font-size:30px;margin-right:5px"></ion-icon></a>
+        <a href="#challenge"><ion-icon name="barbell-outline" style="text-align:left;font-size:30px;"></ion-icon></a>
+        <span class="headertext">Food Diary</span>   
     
     </header>
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
     </head>
+    
     <body>
+        
         <p class="body_head">
         <ion-icon name="chevron-back-circle-outline"style="font-size:64px;"></ion-icon>
         August 11
         <a href="8월12일.html">
         <ion-icon name="chevron-forward-circle-outline" style="font-size:64px;"></ion-icon>
         </a>
-        </p>
-        Today's Meal
-        </p>
-        <p>
-            <ion-icon name="ellipse-outline" style="font-size:10px;margin-left:3%"></ion-icon>
-            &nbsp;&nbsp;Salad,Apple (235Kcal)
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;See details
-            <ion-icon name="arrow-forward-outline"></ion-icon>
-        </p>
-        <p>
-            <ion-icon name="ellipse-outline" style="font-size:10px;margin-left:3%"></ion-icon>
-            &nbsp;&nbsp;Tomato, Fried Egg (413Kcal)
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;See details
-            <ion-icon name="arrow-forward-outline"   ></ion-icon>
-    
-    
-        </p>
-        <p>
-            <ion-icon name="ellipse-outline" style="font-size:10px;margin-left:3%"></ion-icon>
-            &nbsp;&nbsp;Upload your meal!
-            &nbsp;&nbsp;&nbsp;<ion-icon name="add-circle-outline"></ion-icon>
-    
-    
-        </p>
+        
 
 
 
@@ -81,6 +64,7 @@
 
 
     <body>
+        
         
 
         {% if meal_list|length >0 %}
@@ -130,7 +114,7 @@
                   label: 'Calorie',
                   backgroundColor: 'transparent',
                   borderColor: 'red',
-                  data: [8, 10, 5, 2, 20, 30, 45]
+                  data: [1278, 2210, 1955, 1982, 1570, 2730, 1432]
                 }]
                 },
                 options: {}
@@ -161,31 +145,26 @@
           // 챠트를 그릴 데이타
           data: {
             labels: ['08.05', '08.06', '08.07', '08.08', '08.09', '08.10', '08.11'],
-            datasets: [{
-              label: 'Calorie',
-              backgroundColor: 'transparent',
-              borderColor: 'red',
-              data: [8, 10, 5, 2, 20, 30, 45]
-            },
+            datasets: [
             {
                 label: 'Protein',
                 backgroundColor: 'transparent',
                 borderColor: 'Purple',
-                data: [2, 15, 8, 6, 4, 18,11]
+                data: [101, 120, 84, 96, 142, 127,135]
             },
             
             {
                 label: 'Carbohydrate',
                 backgroundColor: 'transparent',
                 borderColor: 'Brown',
-                data: [12, 25, 18, 32, 15, 19,42]
+                data: [154, 107, 124, 96, 184, 135,104]
             },
             
             {
                 label: 'Fat',
                 backgroundColor: 'transparent',
                 borderColor: 'Yellow',
-                data: [9, 5, 18, 6, 24, 12,17]
+                data: [54, 67, 74, 61, 84, 48,96]
             }
             ]
           },
@@ -201,6 +180,7 @@
 
 
 
+      <div class="anchor" id="challenge"></div>
 
         <a href="javascript:doDisplay();"> >see details</a><br/><br/> 
 

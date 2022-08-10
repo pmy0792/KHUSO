@@ -36,7 +36,12 @@ head{
     margin-top: 0;
 }
 
-
+div.anchor {
+    display: block;
+    position: relative;
+    top: -63.3px;
+    visibility: hidden;
+  }
 
 header{
     
@@ -48,8 +53,7 @@ header{
     padding: 10px;
     background: rgb(205, 234, 235);
     z-index: 800;
-    place-content: center;
-    text-align: center;
+    
     border-bottom: 1px solid #2E4C6D;
     font-family: f1;
     
@@ -81,7 +85,8 @@ footer#body-pd{
     border-top: 1px solid #e3e6f0;
 }
 
-.card{
-    border-radius: 15px;
+.headertext{
+    position: fixed;
+    margin-left: 40%;
 }
 

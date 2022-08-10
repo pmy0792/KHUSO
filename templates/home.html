@@ -85,12 +85,21 @@
 
         {% if meal_list|length >0 %}
             {% for meal in meal_list %}
-                <ul> {{meal}} </ul>
+                <ul>
+                {% for food in meal['meal_info'] %}
+                    {% if food["foodname"]!="total" %}
+                        [{{food["foodname"]}}] 
+                    {% endif %}
+                {% endfor %}
                 <button type="button" onClick="location.href='/detail/{{meal.id}}'">Details</button>
+                </ul>
+                
+               
             {% endfor %}
         {% else %}
             <h3>No meal today yet...</h3> 
         {% endif %}
+        
         <form action="http://localhost:5000/upload" 
             method="POST"
             enctype="multipart/form-data">
@@ -211,9 +220,9 @@
 
                     
                     </script>
-                    
+        {% if challenging == False %}
                     <div>
-                        <form>
+                        
 
                             <span id="test1" style="font-size: 120%;">
                             
@@ -247,19 +256,19 @@
                                             <br>
                                                     <div>
                                                         <label for="Now I'm">- Now I'm : </label>
-                                                        <input type="text">
+                                                        <input type="text" name="current-state">
                                                         <label for="kg">kg,</label>
                                                     </div>
                                                 
                                                     <div>
                                                         <label for="and">and I will be</label>
-                                                        <input type="text">
+                                                        <input type="text" name="goal-state">
                                                         <label for="kg">kg</label>
                                                     </div>
                                                     
                                                     <div>
                                                         <label for="by">by</label>
-                                                        <input type="date">
+                                                        <input type="date" name="deadline">
                                                     </div>
                                         </div>
                         
@@ -270,10 +279,10 @@
                                                         <input type="text">
                                                         <label for="won">won</label>
                                                     </div>
-                                                </form>
+                                                
                                         </div>
                                         <div>
-                                        <input type="button" value=" Start challenge! " onClick="innerSample1()">
+                                        <input type="submit" value=" Start challenge! ">
                                         </form>
 
                             
@@ -281,5 +290,8 @@
                 </div>
             </div>
         </div> 
+    {% else %} <!-- challenge 참여 중일때-->
+        <h3>Participating!!</h3>
+    {% endif %}
     </body>
 </html>

@@ -8,18 +8,37 @@ from apimodule import *
 
 app = Flask(__name__)
 meal_list=[]
+challenge_info=[]
+challenging=False
 
 @app.route('/', methods=["GET","POST"])
-def home(meal_list=[],img=None):
-    
+def home(img=None):
+    global meal_list
+    global challenging
     if request.method=="GET":
-        return render_template("home.html",meal_list=meal_list,img=img)
+        return render_template("home.html",meal_list=meal_list,img=img,challenging=challenging)
     
+    elif request.method=="POST": #챌린지 참가!!
+        challenging=True
+        goal=request.form.get('goal')
+        current_state=request.form.get('current-state')
+        goal_state=request.form.get('goal-state')
+        deadline=request.form.get('deadline')
+        challenge_info.append({
+            "goal":goal,
+            "current_state":current_state,
+            "goal_state":goal_state,
+            "deadline":deadline
+        })
+        print("challenge info: ",challenge_info)
+        return render_template("home.html",meal_list=meal_list,img=img,challenging=challenging)
+        
     #elif request.method=="POST": 
     #    return render_template("home.html",meal_list=meal_list,img=f.filename)
 
 @app.route('/upload',methods=["GET","POST"])
-def upload(meal_list=[],img=None):
+def upload(img=None):
+    global meal_list, challenging
     print("Request to /upload")
     # image upload
     f=request.files['file']
@@ -30,8 +49,6 @@ def upload(meal_list=[],img=None):
     
     # api 사용 안 할 때
     filename='4.jpg'
-    
-    
      
     f.save(secure_filename(filename))
     print("file {} uploaded successfully".format(f.filename))
@@ -55,21 +72,24 @@ def upload(meal_list=[],img=None):
     # 여기서 meal name, nutrients info 뽑아내고 사용자가 g수 입력할 수 있도록,,,,
    
     meal_list.append({"id": len(meal_list)+1,"image":f.filename,"meal_info": result})
-    print("meal_list:",meal_list)
-    return render_template("home.html", meal_list=meal_list,img=analyzed_img)
+    print("/upload   meal_list:",meal_list)
+    return render_template("home.html", meal_list=meal_list,img=analyzed_img,challenging=challenging)
 
 @app.route('/detail/<int:id>', methods=["GET"])
 def detail(id):
-    print("meal_list: ",meal_list)
+    global meal_list
+    print("/detail   meal_list: ",meal_list)
     found=dict()
     for meal in meal_list:
         print("meal: ",meal)
-        print(type(meal.id), type(meal))
-        if meal.id==id:
+        print(type(meal["id"]), type(meal))
+        if meal["id"]==id:
             print("found!!!")
             found=meal # 해당 dict 통째로 가져오기
     return render_template("foodinfo.html",meal=found)
 
 
 if __name__ == '__main__':
+    #meal_list=[]
     app.run(debug=True)
+    

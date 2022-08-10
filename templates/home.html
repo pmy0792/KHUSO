@@ -14,10 +14,15 @@
     </head>
     <body>
         <h2> This is home </h2>
-        <div> Img list: </div>
-        {% for img in img_list %}
-            <ul> {{img}} </ul>
-        {% endfor %}
+
+        {% if meal_list|length >0 %}
+            {% for meal in meal_list %}
+                <ul> {{meal}} </ul>
+                <button type="button" onClick="location.href='/detail/{{meal.id}}'">Details</button>
+            {% endfor %}
+        {% else %}
+            <h3>No meal today yet...</h3> 
+        {% endif %}
         <form action="http://localhost:5000/upload" 
             method="POST"
             enctype="multipart/form-data">
@@ -116,7 +121,6 @@
 
                             
                     </div>
->>>>>>> hyejeong
                 </div>
             </div>
         </div> 

@@ -44,7 +44,8 @@ def execute_api(filename):
    
 def extract_nutritient(response):
     
-    # api 호출 될 때
+    # api 호출 될 때 아래 코드 추가
+    # response=response.json()
     '''
     info=dict()
     info["foodname"]=response.json()['foodName']
@@ -57,18 +58,38 @@ def extract_nutritient(response):
         #print('{} quantity is'.format(a['label']), int(a['quantity']), a['unit'])
         info[a['label']]=str(a['quantity'])+str(a['unit'])
     '''
-        
+    
+    
     # api 호출 안 될 때
-    info=dict()
-    info["foodname"]=response['foodName']
+    
+    one_food=dict()
+    total_food=dict()
+    info_list=[]
+    
     nutri =['CHOCDF','FAT', 'NA' , 'PROCNT'] #탄수화물 지방 나트륨 단백질
     calories=int(response['nutritional_info']['calories'])
-    info["calories"] = calories
+    
+    total_food["foodname"]='total'
+    total_food["calories"] = calories
     
     for nut in nutri:
-        a =response['nutritional_info']['totalNutrients']['{}'.format(nut)]
-        #print('{} quantity is'.format(a['label']), int(a['quantity']), a['unit'])
-        info[a['label']]=str(a['quantity'])+str(a['unit'])
- 
-    print("Extracted nutritients info: ",info)
-    return info
+        a =response['nutritional_info']['totalNutrients'][nut]
+        total_food[a['label']]=a['quantity']
+        
+    info_list.append(total_food)
+        
+    for i in range(len(response['foodName'])): #detect된 각 음식마다
+        one_food=dict()
+        one_food["foodname"]=response['foodName'][i]
+        one_food["calories"]=response['nutritional_info_per_item'][i]['nutritional_info']['calories']
+        
+        nutri_info=response['nutritional_info_per_item'][i]['nutritional_info']['totalNutrients'][nut]
+        
+        for nut in nutri:
+            one_food[nutri_info['label']]=nutri_info['quantity']
+            
+        info_list.append(one_food)
+        print("Extracted nutritients info: ",one_food)
+        
+    print("info_list: ",info_list)
+    return info_list

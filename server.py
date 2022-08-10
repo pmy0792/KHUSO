@@ -1,6 +1,6 @@
 from pickle import NONE
 from flask import Flask, render_template, request
-#from hamcrest import none
+from hamcrest import none
 from pymysql import NULL
 from werkzeug.utils import secure_filename
 import cv2
@@ -11,6 +11,7 @@ meal_list=[]
 
 @app.route('/', methods=["GET","POST"])
 def home(meal_list=[],img=None):
+    
     if request.method=="GET":
         return render_template("home.html",meal_list=meal_list,img=img)
     
@@ -24,7 +25,6 @@ def upload(meal_list=[],img=None):
     f=request.files['file']
     
     # api 사용 시
-    
     #filename=f.filename
     
     
@@ -37,7 +37,7 @@ def upload(meal_list=[],img=None):
     print("file {} uploaded successfully".format(f.filename))
         
     # run api
-    img, result=execute_api(secure_filename(f.filename))
+    img, result=execute_api(secure_filename(f.filename)) #result는 meal 정보 담는 dict
     print("img: ",img)
     
     # api 사용시...
@@ -52,20 +52,23 @@ def upload(meal_list=[],img=None):
         
         
     # save meal info based on analysis
-    # 여기서 meal name, nutrients info 뽑아내고 사용자가 g수 입력할 수 있도록
-    meal_list.append(f.filename)
-    meal_list.append({"image":f.filename,"meal_info": result})
-    return render_template("home.html", meal_list=meal_list,img=analyzed_img,result=result)
+    # 여기서 meal name, nutrients info 뽑아내고 사용자가 g수 입력할 수 있도록,,,,
+   
+    meal_list.append({"id": len(meal_list)+1,"image":f.filename,"meal_info": result})
+    print("meal_list:",meal_list)
+    return render_template("home.html", meal_list=meal_list,img=analyzed_img)
 
-@app.route('/save',methods=["POST"])
-def save():
-    # meal_list에 모든 정보 저장
-    meal_list=[] 
-    #quantity_data=request.form.items()
-    #for food,quantity in quantity_data:
-    #    # g수에 맞춰 nutrients 계산 후 meal_list update
-     
-    return render_template("home.html",meal_list=meal_list,img=None)
+@app.route('/detail/<int:id>', methods=["GET"])
+def detail(id):
+    print("meal_list: ",meal_list)
+    found=dict()
+    for meal in meal_list:
+        print("meal: ",meal)
+        print(type(meal.id), type(meal))
+        if meal.id==id:
+            print("found!!!")
+            found=meal # 해당 dict 통째로 가져오기
+    return render_template("foodinfo.html",meal=found)
 
 
 if __name__ == '__main__':

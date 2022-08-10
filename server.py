@@ -12,7 +12,7 @@ challenge_info=dict()
 challenging=False
 graph_data={
     "date":['08.05', '08.06', '08.07', '08.08', '08.09', '08.10', '08.11'],
-    "calorie":[1278, 2210, 1955, 1982, 1570, 2730, 1432],
+    "calorie":[1278, 2210, 1955, 1982, 1570, 1730, 1432],
     "carbs":[154, 107, 124, 96, 184, 135,104],
     "protein":[10, 120, 84, 96, 142, 127,135],
     "fat":[54, 67, 74, 61, 84, 48,96]
@@ -60,7 +60,7 @@ def home(img=None):
 
 @app.route('/upload',methods=["GET","POST"])
 def upload(img=None):
-    global meal_list, challenging
+    global meal_list, challenging, challenge_info, graph_data
     print("Request to /upload")
     # image upload
     f=request.files['file']
@@ -99,8 +99,23 @@ def upload(img=None):
     # 여기서 meal name, nutrients info 뽑아내고 사용자가 g수 입력할 수 있도록,,,,
    
     meal_list.append({"id": len(meal_list)+1,"image":f.filename,"meal_info": result})
+    
+    # meal 업데이트 된거 graph data에 반영
+    recent_meal=meal_list[-1]["meal_info"]
+    for m in recent_meal:
+        if m["foodname"]=="total":
+            recent_meal_total=m
+            
+    
+    
+    graph_data["date"].append('09.09')
+    graph_data["calorie"].append(recent_meal_total["calories"])
+    graph_data["carbs"].append(recent_meal_total["Carbs"])
+    graph_data["fat"].append(recent_meal_total["Fat"])
+    graph_data["protein"].append(recent_meal_total["Protein"])
+    
     print("/upload   meal_list:",meal_list)
-    return render_template("home.html", meal_list=meal_list,img=analyzed_img,challenging=challenging,challenge_info=challenge_info)
+    return render_template("home.html", graph_data=graph_data,meal_list=meal_list,img=analyzed_img,challenging=challenging,challenge_info=challenge_info)
 
 @app.route('/detail/<int:id>', methods=["GET"])
 def detail(id):

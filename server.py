@@ -117,7 +117,7 @@ def upload(img=None):
     graph_data["protein"].append(recent_meal_total["Protein"])
     
     print("/upload   meal_list:",meal_list)
-    return render_template("home.html",graph_data=graph_data meal_list=meal_list,img=img,challenging=challenging,challenge_info=challenge_info,input_weight=input_weight)
+    return render_template("home.html",graph_data=graph_data, meal_list=meal_list,img=img,challenging=challenging,challenge_info=challenge_info,input_weight=input_weight)
 
 
 @app.route('/kgupload', methods=["POST"])

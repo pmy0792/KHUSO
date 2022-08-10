@@ -15,11 +15,11 @@ def execute_api(filename):
     rect=[]
     result_str=""
     
-    command = "node 4.js {}".format(filename.split('.')[0]) 
-    result = check_output(command,shell=True).decode(sys.stdout.encoding)
-  
-    # api 호출 될 때 사용
     
+    # api 호출 될 때 사용
+    #command = "node 4.js {}".format(filename.split('.')[0]) 
+    #result = check_output(command,shell=True).decode(sys.stdout.encoding)
+  
   #  json_obj = json.loads(result)
   #  img = cv2.imread(filename, cv2.IMREAD_COLOR)
 

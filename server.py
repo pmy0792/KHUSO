@@ -10,14 +10,35 @@ app = Flask(__name__)
 meal_list=[]
 challenge_info=dict()
 challenging=False
+graph_data={
+    "date":['08.05', '08.06', '08.07', '08.08', '08.09', '08.10', '08.11'],
+    "calorie":[1278, 2210, 1955, 1982, 1570, 2730, 1432],
+    "carbs":[154, 107, 124, 96, 184, 135,104],
+    "protein":[10, 120, 84, 96, 142, 127,135],
+    "fat":[54, 67, 74, 61, 84, 48,96]
+}
+
+
+
+@app.route('/test',methods=['GET'])
+def test():
+    return render_template("test.html")
+
 
 @app.route('/', methods=["GET","POST"])
 def home(img=None):
     global meal_list
     global challenging
     global challenge_info
+    global graph_data
+    
     if request.method=="GET":
-        return render_template("home.html",meal_list=meal_list,img=img,challenging=challenging)
+        # 그래프 정보 넘겨줘야함
+        # 날짜, 칼로리, 탄, 단, 지
+        
+        
+        
+        return render_template("home.html",graph_data=graph_data,meal_list=meal_list,img=img,challenging=challenging,challenge_info=challenge_info)
     
     elif request.method=="POST": #챌린지 참가!!
         challenging=True
@@ -32,7 +53,7 @@ def home(img=None):
             "deadline":deadline
         }
         print("challenge info: ",challenge_info)
-        return render_template("home.html",meal_list=meal_list,img=img,challenging=challenging,challenge_info=challenge_info)
+        return render_template("home.html",graph_data=graph_data,meal_list=meal_list,img=img,challenging=challenging,challenge_info=challenge_info)
         
     #elif request.method=="POST": 
     #    return render_template("home.html",meal_list=meal_list,img=f.filename)
@@ -52,8 +73,8 @@ def upload(img=None):
     
     
     # 노트북에서 돌릴 때 
-    #f.save(secure_filename(filename))
-    #print("file {} uploaded successfully".format(f.filename))
+    f.save(secure_filename(filename))
+    print("file {} uploaded successfully".format(f.filename))
      
     # 모바일에서 돌릴 때
      
@@ -79,7 +100,7 @@ def upload(img=None):
    
     meal_list.append({"id": len(meal_list)+1,"image":f.filename,"meal_info": result})
     print("/upload   meal_list:",meal_list)
-    return render_template("home.html", meal_list=meal_list,img=analyzed_img,challenging=challenging)
+    return render_template("home.html", meal_list=meal_list,img=analyzed_img,challenging=challenging,challenge_info=challenge_info)
 
 @app.route('/detail/<int:id>', methods=["GET"])
 def detail(id):
